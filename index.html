@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Phishing Awareness & Defense Training</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="nav-container">
+      <div class="nav-brand">
+        <span class="brand-badge">SEC-101</span>
+        <span class="brand-text">PhishGuard</span>
+      </div>
+      <div class="nav-links">
+        <a href="#overview">Overview</a>
+        <a href="#tactics">Tactics</a>
+        <a href="#simulator">Simulator</a>
+        <a href="#url-lab">URL Inspector</a>
+        <a href="#quiz">Assessment</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="content-container">
+
+    <section class="hero" id="overview">
+      <div class="hero-tag">Interactive Security Training</div>
+      <h1>Phishing Awareness & Social Engineering Defense</h1>
+      <p class="hero-desc">
+        More than 80% of reported security incidents begin with human exploitation.
+        Learn to spot fraudulent indicators, analyze disguised URLs, and handle targeted attacks.
+      </p>
+      <div class="hero-actions">
+        <a href="#simulator" class="btn btn-primary">Start Email Simulator</a>
+        <a href="#quiz" class="btn btn-outline">Take Knowledge Check</a>
+      </div>
+    </section>
+
+    <section class="section" id="tactics">
+      <div class="section-header">
+        <span class="section-kicker">Threat Landscape</span>
+        <h2>Common Attack Vectors & Psychological Hooks</h2>
+        <p>Attackers do not break into systems directly; they trick individuals into opening the doors.</p>
+      </div>
+
+      <div class="card-grid">
+        <div class="info-card">
+          <div class="card-icon">🎯</div>
+          <h3>Spear Phishing</h3>
+          <p>Carefully researched, individualized communication using your name, job title, and company specifics to build immediate trust.</p>
+        </div>
+        <div class="info-card">
+          <div class="card-icon">📱</div>
+          <h3>Smishing & Vishing</h3>
+          <p>Scams conducted through SMS texts or phone calls impersonating IT technicians, banks, or delivery couriers demanding two-factor codes.</p>
+        </div>
+        <div class="info-card">
+          <div class="card-icon">👔</div>
+          <h3>Whaling (BEC)</h3>
+          <p>Executive impersonation attacks targeting finance personnel to execute unauthorized wire transfers or disclose employee tax information.</p>
+        </div>
+        <div class="info-card">
+          <div class="card-icon">🪝</div>
+          <h3>Watering Hole</h3>
+          <p>Compromising a trusted third-party website frequented by an organization's staff to silently deploy drive-by malware payloads.</p>
+        </div>
+      </div>
+
+      <div class="psych-box">
+        <h3>Primary Psychological Triggers</h3>
+        <div class="psych-tags">
+          <span class="tag">Artificial Urgency ("Within 24 hours")</span>
+          <span class="tag">Fear of Penalties ("Account Termination")</span>
+          <span class="tag">Perceived Authority ("Message from the CEO")</span>
+          <span class="tag">Greed & Curiosity ("Q3 Performance Bonus")</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="simulator">
+      <div class="section-header">
+        <span class="section-kicker">Practical Drill</span>
+        <h2>Email Forensics Simulator</h2>
+        <p>Inspect the email metadata, sender address, and hyperlinks below. Decide if the message is legitimate or malicious.</p>
+      </div>
+
+      <div class="sim-wrapper">
+        <div class="sim-selector">
+          <button class="sim-tab active" data-scenario="0">Scenario 1: Account Reset</button>
+          <button class="sim-tab" data-scenario="1">Scenario 2: Payroll Bonus</button>
+          <button class="sim-tab" data-scenario="2">Scenario 3: Urgent IT Patch</button>
+        </div>
+
+        <div class="email-client">
+          <div class="email-header-pane">
+            <div class="email-field">
+              <span class="field-label">From:</span>
+              <span class="field-value" id="sim-from">Microsoft 365 Team &lt;security-alert@micros0ft-support-portal.net&gt;</span>
+            </div>
+            <div class="email-field">
+              <span class="field-label">To:</span>
+              <span class="field-value">you@organization.com</span>
+            </div>
+            <div class="email-field">
+              <span class="field-label">Subject:</span>
+              <span class="field-value subject-line" id="sim-subject">Urgent: Unusual sign-in activity detected on your account</span>
+            </div>
+          </div>
+
+          <div class="email-body-pane" id="sim-body">
+          </div>
+
+          <div class="hover-preview" id="hover-preview">
+            Destination: <span id="hover-url">https://...</span>
+          </div>
+
+          <div class="sim-actions" id="sim-actions">
+            <button class="btn btn-phish" id="btn-report-phish">Flag as Phishing</button>
+            <button class="btn btn-legit" id="btn-mark-legit">Mark as Safe</button>
+          </div>
+
+          <div class="sim-feedback hidden" id="sim-feedback">
+            <div class="feedback-badge" id="feedback-badge"></div>
+            <p id="feedback-message"></p>
+            <ul id="feedback-reasons" class="feedback-list"></ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="url-lab">
+      <div class="section-header">
+        <span class="section-kicker">Interactive Analysis</span>
+        <h2>Deceptive Domain & URL Inspector</h2>
+        <p>Attackers construct deceptive subdomains and typosquatting URLs to deceive victims.</p>
+      </div>
+
+      <div class="url-lab-box">
+        <div class="preset-links">
+          <span>Try sample addresses:</span>
+          <button class="btn-chip" data-sample="https://accounts.google.com.user-verify.online/login">Google Subdomain Spoof</button>
+          <button class="btn-chip" data-sample="https://www.paypal-secure-portal.com/update">Typosquatted Brand</button>
+          <button class="btn-chip" data-sample="https://login.microsoftonline.com/common/oauth2">Legitimate Microsoft</button>
+        </div>
+
+        <div class="input-row">
+          <input type="text" id="url-input" class="url-input" value="https://accounts.google.com.user-verify.online/login" placeholder="Paste or type a web address..." />
+          <button id="btn-analyze-url" class="btn btn-primary">Deconstruct</button>
+        </div>
+
+        <div class="url-breakdown" id="url-breakdown">
+          <div class="breakdown-grid">
+            <div class="part-item">
+              <span class="part-name">Protocol</span>
+              <span class="part-value" id="part-protocol">https://</span>
+            </div>
+            <div class="part-item">
+              <span class="part-name">Subdomain(s)</span>
+              <span class="part-value" id="part-subdomain">accounts.google.com</span>
+            </div>
+            <div class="part-item highlight">
+              <span class="part-name">Actual Registered Domain</span>
+              <span class="part-value danger" id="part-domain">user-verify.online</span>
+            </div>
+            <div class="part-item">
+              <span class="part-name">Target Path</span>
+              <span class="part-value" id="part-path">/login</span>
+            </div>
+          </div>
+          <div class="verdict-bar" id="url-verdict"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="checklist">
+      <div class="section-header">
+        <span class="section-kicker">Defense Protocols</span>
+        <h2>Standard Operating Procedures</h2>
+      </div>
+
+      <div class="protocol-grid">
+        <div class="protocol-item">
+          <div class="step-num">01</div>
+          <h4>Inspect the Envelope Sender</h4>
+          <p>Never rely solely on display names. Expand the header to verify the actual domain name after the @ character.</p>
+        </div>
+        <div class="protocol-item">
+          <div class="step-num">02</div>
+          <h4>Hover Over All Hyperlinks</h4>
+          <p>Before clicking any link, verify the real destination URL displayed in your browser status bar or preview popup.</p>
+        </div>
+        <div class="protocol-item">
+          <div class="step-num">03</div>
+          <h4>Use Secondary Out-of-Band Verification</h4>
+          <p>If an email requests wire transfers or credential changes, reach out to the sender directly via an official phone number.</p>
+        </div>
+        <div class="protocol-item">
+          <div class="step-num">04</div>
+          <h4>Enforce Hardware Multi-Factor Authentication</h4>
+          <p>Use security keys (FIDO2/WebAuthn) or authenticator apps rather than plain SMS text verification wherever possible.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="quiz">
+      <div class="section-header">
+        <span class="section-kicker">Verification</span>
+        <h2>Knowledge Assessment</h2>
+        <p>Complete this 5-question evaluation to test your understanding.</p>
+      </div>
+
+      <div class="quiz-card">
+        <div id="quiz-question-container">
+          <div class="quiz-progress-text">Question <span id="quiz-idx">1</span> of 5</div>
+          <h3 id="quiz-question" class="quiz-question-title"></h3>
+          <div class="quiz-options" id="quiz-options"></div>
+          <div class="quiz-nav">
+            <button id="quiz-next-btn" class="btn btn-primary" disabled>Next Question</button>
+          </div>
+        </div>
+
+        <div id="quiz-result-container" class="hidden">
+          <div class="result-score" id="result-score">0 / 5</div>
+          <h3 id="result-title">Assessment Completed</h3>
+          <p id="result-desc"></p>
+          <div class="result-actions">
+            <button id="btn-restart-quiz" class="btn btn-outline">Retake Assessment</button>
+            <button id="btn-get-certificate" class="btn btn-primary">Generate Certificate</button>
+          </div>
+        </div>
+
+        <div id="certificate-container" class="certificate-wrap hidden">
+          <div class="cert-border">
+            <div class="cert-header">
+              <h2>Certificate of Security Awareness</h2>
+              <span>Issued by PhishGuard Security Training</span>
+            </div>
+            <p class="cert-statement">This certifies that</p>
+            <h3 class="cert-user-name" id="cert-name">Security Champion</h3>
+            <p class="cert-text">
+              has completed the interactive Phishing Recognition, Social Engineering Tactics,
+              and Domain Verification training modules.
+            </p>
+            <div class="cert-footer">
+              <div class="cert-foot-item">
+                <span class="foot-label">Date Completed</span>
+                <span class="foot-val" id="cert-date"></span>
+              </div>
+              <div class="cert-foot-item">
+                <span class="foot-label">Validation Status</span>
+                <span class="foot-val">Verified / Passing Score</span>
+              </div>
+            </div>
+          </div>
+          <div class="cert-actions">
+            <button class="btn btn-outline" onclick="window.print()">Print / Save PDF</button>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <p>Phishing Awareness & Security Education Platform</p>
+      <p class="footer-sub">Built for defensive security learning and educational demonstrations.</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
